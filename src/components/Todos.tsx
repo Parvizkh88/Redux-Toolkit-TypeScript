@@ -1,5 +1,5 @@
 import React from 'react'
-import {TodoT} from '../types/Todo' 
+import {TodoT} from '../types/TodoTypes' 
 import Todo from './Todo'
 
 interface TodosProps{

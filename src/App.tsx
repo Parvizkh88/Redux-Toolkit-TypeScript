@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import './App.css';
-import { TodoT } from './types/Todo';
+import { TodoT } from './types/TodoTypes';
 import Todos from './components/Todos';
 import Todo from './components/Todo';
 
