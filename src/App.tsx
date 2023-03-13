@@ -1,56 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
 import './App.css';
+import { TodoT } from './types/Todo';
+import Todos from './components/Todos';
+import Todo from './components/Todo';
+
 
 function App() {
+const [todos, setTodos] = useState<TodoT[]>([])
+const [loading, setLoading] = useState<boolean>(false)
+const [error, setError] = useState<boolean>(false)
+
+const addTodo = (newTodo:TodoT)=>{
+  let newTodos = [...todos, newTodo]
+  setTodos(newTodos)
+}
+
+const url='https://jsonplaceholder.typicode.com/todos'
+
+useEffect(()=>{
+const fetch = async()=>{
+  let response = await axios.get(url)
+  let data:TodoT[] = await response.data
+  setTodos(data)
+}
+fetch()
+}, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div>
+      <h1>Todos</h1>
+      <Todos 
+      loading={loading}
+      addTodo = {addTodo}
+      setLoading={setLoading}
+      todos = {todos}
+      error={error}
+      />
     </div>
   );
 }

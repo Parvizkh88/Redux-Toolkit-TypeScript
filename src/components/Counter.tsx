@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
 import {
   decrement,
   increment,
   incrementByAmount,
   incrementAsync,
   incrementIfOdd,
-  } from './counterSlice';
+  } from '../features/counter/counterSlice';
 
 export function Counter() {
   const count = useAppSelector((state)=>state.counter.value);
